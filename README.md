@@ -1,25 +1,32 @@
 # Georgiev Barber — web
 
 Web de una página para **Georgiev Barber**, barbería en Av. Europa 30, Lorca (Murcia).
-HTML, CSS y JS sin dependencias ni paso de compilación.
+HTML y CSS propios, sin paso de compilación. El movimiento usa GSAP + ScrollTrigger (por CDN).
+
+Diseño inspirado en la estructura, jerarquía y ritmo de scroll de la web premiada de
+Hagi's Barbershop: fondo crema, titular Didone gigante con foto incrustada, logo manuscrito
+y menú de palo seco fino. Paleta propia — crema + casi negro, con el **verde botella** de la
+capa de rayas del local y el **terracota/cuero** como acentos cálidos.
 
 ## Arrancar en local
 
 ```bash
-npm run dev          # http://localhost:5173
-# o, sin Node:
-python3 -m http.server 5173
+python3 -m http.server 5173     # http://localhost:5173
+# o: npm run dev
 ```
 
 ## Estructura
 
 ```
-index.html        Página completa (portada, servicios, trabajos, reels, Georgi, reserva, reseñas, contacto)
-css/styles.css    Estilos y paleta (variables en :root)
-js/main.js        Estado "abierto/cerrado" en hora de España y día actual en el horario
-img/              Fotos de Instagram optimizadas a WebP + og.jpg para compartir
-favicon.svg       Monograma GB
+index.html        Página completa: portada, servicios y precios, banda cálida, el barbero,
+                  trabajos (galería + reels), opiniones, reserva, contacto y pie.
+css/redesign.css  Estilos y paleta (variables en :root). Portada + todas las secciones.
+js/main.js        Animaciones (GSAP/ScrollTrigger) + estado "abierto/cerrado" en hora de España.
+img/              Fotos de Instagram optimizadas a WebP + og.jpg para compartir.
+favicon.svg       Monograma GB.
 ```
+
+Degrada bien: sin JS o con `prefers-reduced-motion`, todo el contenido se ve sin animar.
 
 ## De dónde sale cada dato
 

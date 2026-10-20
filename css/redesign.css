@@ -1,0 +1,656 @@
+/* ==========================================================
+   Georgiev Barber — rediseño "estilo Hagi's"
+   Portada. Fondo crema, aire, titular Didone gigante centrado,
+   foto oscura incrustada detrás de las letras, logo manuscrito
+   y menú de palo seco fino muy espaciado.
+
+   Reparto de color (como Hagi's reparte el suyo):
+   fondo = crema · texto = casi negro · botón/acento = verde
+   botella (la capa de rayas, seña del local) · cálido = cuero/
+   terracota (camiseta de Georgi + madera del suelo).
+   ========================================================== */
+
+:root {
+  --crema:      #EFEDE4;   /* fondo */
+  --crema-2:    #E8E5DA;   /* paneles / hover suave */
+  --tinta:      #15171A;   /* texto y titulares */
+  --tinta-2:    #4C5156;   /* texto secundario */
+  --linea:      #D7D4C7;   /* separadores sobre crema */
+
+  --verde:      #1E5B3E;   /* verde botella de la capa (acento/botón) */
+  --verde-osc:  #143E2B;
+  --cuero:      #A85A30;   /* terracota/cuero: detalles cálidos */
+  --laton:      #B9925A;   /* estrellas */
+
+  --serif: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+  --sans:  "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --script:"Mr Dafoe", "Bodoni Moda", cursive;
+
+  --gutter: clamp(18px, 5vw, 64px);
+  --max: 1280px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--crema);
+  color: var(--tinta);
+  font-family: var(--sans);
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+img { display: block; max-width: 100%; height: auto; }
+a   { color: inherit; text-decoration: none; }
+
+::selection { background: var(--verde); color: var(--crema); }
+
+:focus-visible {
+  outline: 2px solid var(--verde);
+  outline-offset: 4px;
+}
+
+.skip {
+  position: absolute; left: 16px; top: -60px; z-index: 100;
+  background: var(--tinta); color: var(--crema);
+  padding: 10px 14px; border-radius: 2px;
+}
+.skip:focus { top: 14px; }
+
+/* ---------- Logo manuscrito ---------- */
+.brand {
+  font-family: var(--script);
+  font-weight: 400;
+  font-size: clamp(1.9rem, 2.6vw, 2.5rem);
+  line-height: 1;
+  letter-spacing: 0;
+  color: var(--tinta);
+  padding-right: .15em;   /* aire para el remate de la "v" */
+}
+
+/* ---------- Navegación ---------- */
+.nav {
+  position: fixed; inset: 0 0 auto 0; z-index: 30;
+  display: flex; align-items: center; gap: 28px;
+  padding: clamp(16px, 2.4vw, 26px) var(--gutter);
+  transition: background-color .4s ease, box-shadow .4s ease, padding .4s ease;
+}
+.nav.is-stuck {
+  background: color-mix(in srgb, var(--crema) 88%, transparent);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 1px 0 var(--linea);
+  padding-top: 14px; padding-bottom: 14px;
+}
+.nav__menu {
+  display: flex; gap: clamp(18px, 2.4vw, 40px);
+  margin: 0 auto;                 /* centra el menú */
+}
+.nav__menu a,
+.nav__meta a {
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: .22em;
+  font-weight: 500;
+  color: var(--tinta);
+  padding: 4px 0;
+  position: relative;
+}
+.nav__menu a::after {
+  content: ""; position: absolute; left: 0; right: 100%; bottom: 0;
+  height: 1px; background: var(--tinta);
+  transition: right .35s cubic-bezier(.4,.5,.1,1);
+}
+.nav__menu a:hover::after { right: 0; }
+
+.nav__meta { display: flex; align-items: center; gap: clamp(14px, 1.8vw, 26px); }
+.nav__meta .muted { color: var(--tinta-2); }
+.nav__book {
+  color: var(--crema); background: var(--verde);
+  padding: 10px 18px; border-radius: 2px;
+  letter-spacing: .2em;
+  transition: background-color .25s ease;
+}
+.nav__book:hover { background: var(--verde-osc); color: var(--crema); }
+
+/* ---------- Portada ---------- */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: clamp(104px, 15vh, 160px) var(--gutter) clamp(88px, 12vh, 128px);
+}
+
+.hero__eyebrow {
+  margin: 0 0 clamp(24px, 4vh, 48px);
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: .34em;
+  font-weight: 500;
+  color: var(--cuero);
+}
+.hero__eyebrow .dot { color: var(--tinta-2); margin: 0 .55em; }
+
+/* Titular Didone gigante con la foto incrustada detrás */
+.hero__title {
+  position: relative;
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-variation-settings: "opsz" 96;
+  text-transform: uppercase;
+  font-size: clamp(3.2rem, 11.3vw, 9.1rem);
+  line-height: .9;
+  letter-spacing: -0.015em;
+  z-index: 1;
+}
+.hero__title .line { display: block; position: relative; z-index: 2; }
+.hero__title .line + .line { text-indent: .06em; }
+
+/* La palabra con sangría negativa a la derecha para abrazar la foto */
+.hero__title .word { display: inline-block; }
+
+/* Foto oscura "embebida": detrás de las letras, centrada, difuminada
+   en los bordes para fundirse con el crema. */
+.hero__media {
+  position: absolute; z-index: 1;
+  top: 48%; left: 62%;
+  width: clamp(182px, 19vw, 250px);
+  aspect-ratio: 3 / 4;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  -webkit-mask-image: radial-gradient(125% 120% at 50% 45%, #000 40%, transparent 80%);
+          mask-image: radial-gradient(125% 120% at 50% 45%, #000 40%, transparent 80%);
+}
+.hero__media img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: 50% 34%;
+  filter: saturate(.92) contrast(1.02) brightness(.74);
+}
+.hero__media::after {   /* tinte cálido para que "pese" en oscuro */
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg,
+    rgba(21,23,26,.30),
+    rgba(42,24,12,.42) 55%,
+    rgba(21,23,26,.55));
+  mix-blend-mode: multiply;
+}
+
+.hero__lead {
+  margin: clamp(26px, 4vh, 40px) auto 0;
+  max-width: 42ch;
+  font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+  line-height: 1.5;
+  color: var(--tinta-2);
+}
+
+.hero__actions {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  align-items: center; gap: clamp(16px, 2vw, 28px);
+  margin-top: clamp(26px, 3.4vh, 40px);
+}
+
+/* Botón rectangular oscuro (como el de Hagi's), pero relleno verde */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 52px; padding: 0 30px;
+  font-family: var(--sans); font-size: .76rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .22em;
+  border-radius: 2px;
+  transition: transform .25s ease, background-color .25s ease, color .25s ease;
+}
+.btn--solid { background: var(--tinta); color: var(--crema); }
+.btn--solid:hover { background: var(--verde); color: var(--crema); transform: translateY(-2px); }
+
+.btn--text {
+  letter-spacing: .22em; text-transform: uppercase;
+  font-size: .76rem; font-weight: 600; color: var(--tinta);
+  position: relative; padding: 4px 2px;
+}
+.btn--text::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -2px;
+  height: 1px; background: var(--cuero);
+  transform: scaleX(1); transform-origin: right;
+  transition: transform .35s cubic-bezier(.4,.5,.1,1);
+}
+.btn--text:hover { color: var(--cuero); }
+
+/* Indicador de scroll */
+.hero__scroll {
+  position: absolute; left: 50%; bottom: clamp(22px, 4vh, 40px);
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  font-size: .64rem; text-transform: uppercase; letter-spacing: .3em;
+  color: var(--tinta-2);
+}
+.hero__scroll .rule { width: 1px; height: 46px; background: var(--linea); position: relative; overflow: hidden; }
+.hero__scroll .rule::after {
+  content: ""; position: absolute; left: 0; top: -60%; width: 100%; height: 60%;
+  background: var(--tinta);
+  animation: scrolldrop 1.9s cubic-bezier(.6,0,.2,1) infinite;
+}
+@keyframes scrolldrop {
+  0%   { transform: translateY(-20%); }
+  60%  { transform: translateY(240%); }
+  100% { transform: translateY(240%); }
+}
+
+/* Banda marquee oscura (transición y ritmo de scroll, tipo Hagi's) */
+.marquee {
+  background: var(--tinta); color: var(--crema);
+  padding: clamp(40px, 7vw, 86px) 0;
+  overflow: hidden;
+}
+.marquee__track {
+  display: flex; align-items: baseline; gap: clamp(20px, 3vw, 48px);
+  white-space: nowrap; width: max-content;
+  will-change: transform;
+}
+.marquee__track span {
+  font-family: var(--serif); font-weight: 500; font-variation-settings:"opsz" 96;
+  text-transform: uppercase;
+  font-size: clamp(2.3rem, 7vw, 6rem); line-height: 1;
+  letter-spacing: -.01em; color: var(--crema);
+}
+.marquee__track .sep { color: var(--cuero); font-family: var(--sans); font-weight: 300; }
+.marquee__track .em { font-style: italic; color: var(--laton); font-weight: 400; }
+
+/* ---------- Estado de carga para la animación ---------- */
+.js .hero__eyebrow,
+.js .hero__title .word,
+.js .hero__lead,
+.js .hero__actions,
+.js .hero__scroll { opacity: 0; }
+.js .hero__media  { opacity: 0; }
+
+/* Si no hay JS o se prefiere menos movimiento, se ve todo sin animar */
+.no-js .hero__eyebrow,
+.no-js .hero__title .word,
+.no-js .hero__lead,
+.no-js .hero__actions,
+.no-js .hero__scroll,
+.no-js .hero__media { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__scroll .rule::after { animation: none; }
+}
+
+/* Ventanas bajas: el indicador de scroll no cabe sin pisar los botones */
+@media (max-height: 740px) {
+  .hero__scroll { display: none; }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 860px) {
+  .nav__menu { display: none; }
+  .nav { gap: 16px; justify-content: space-between; }
+  .nav__menu { margin: 0; }
+}
+
+@media (max-width: 560px) {
+  .nav__meta .muted { display: none; }
+  .eb-extra { display: none; }
+  .hero__eyebrow { margin-bottom: clamp(40px, 7vh, 56px); }
+  .hero__title { font-size: clamp(2.5rem, 13.3vw, 4.2rem); letter-spacing: -0.02em; }
+  .hero__media {
+    left: 50%; top: 50%;
+    width: clamp(100px, 29vw, 134px);
+    transform: translate(-50%, -50%);
+  }
+  .hero__actions { flex-direction: column; gap: 14px; }
+  .hero__actions .btn { width: 100%; }
+  .hero__actions .btn--text { margin-top: 4px; }
+}
+
+/* ==========================================================
+   SECCIONES INTERIORES (mismo lenguaje que la portada)
+   ========================================================== */
+
+html { scroll-padding-top: clamp(70px, 10vh, 96px); }
+
+/* Contenedor de sección */
+.section {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(72px, 11vw, 150px) var(--gutter);
+}
+
+/* Cabeceras de sección */
+.sec-eyebrow {
+  margin: 0 0 clamp(20px, 2.6vw, 30px);
+  font-size: .72rem; text-transform: uppercase; letter-spacing: .28em;
+  font-weight: 500; color: var(--cuero);
+  display: flex; align-items: center; gap: 12px;
+}
+.sec-eyebrow .sec-num {
+  font-family: var(--serif); font-style: italic; font-weight: 500;
+  font-size: 1rem; letter-spacing: 0; color: var(--tinta-2);
+}
+.sec-eyebrow--light { color: var(--laton); }
+.sec-eyebrow--light .sec-num { color: color-mix(in srgb, var(--crema) 60%, transparent); }
+
+.sec-title {
+  margin: 0;
+  font-family: var(--serif); font-weight: 500; font-variation-settings:"opsz" 96;
+  text-transform: uppercase;
+  font-size: clamp(2.4rem, 6.2vw, 5.2rem);
+  line-height: .92; letter-spacing: -0.018em;
+}
+.sec-intro {
+  margin: clamp(22px, 3vw, 34px) 0 0;
+  max-width: 48ch; color: var(--tinta-2);
+  font-size: clamp(1.02rem, 1.4vw, 1.18rem); line-height: 1.55;
+}
+.sec-head { margin-bottom: clamp(44px, 6vw, 80px); }
+.sec-head--split {
+  display: grid; grid-template-columns: 1fr minmax(0, 420px);
+  align-items: end; gap: 24px clamp(40px, 6vw, 90px);
+}
+.sec-head--split .sec-intro { margin-top: 0; }
+
+/* ---------- Servicios ---------- */
+.services { border-top: 1px solid var(--linea); }
+.menu {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(36px, 6vw, 110px);
+}
+.menu__group {
+  margin: 0 0 6px; padding-bottom: 12px;
+  border-bottom: 1.5px solid var(--tinta);
+  font-size: .78rem; font-weight: 600; text-transform: uppercase; letter-spacing: .18em;
+}
+.menu__col .menu__group:not(:first-child) { margin-top: clamp(36px, 4vw, 52px); }
+.menu__list { list-style: none; margin: 0; padding: 0; }
+.item { padding: 16px 0; border-bottom: 1px solid var(--linea); }
+.item__row { display: flex; align-items: baseline; gap: 8px; }
+.item__name { font-weight: 600; font-size: 1.04rem; }
+.item__dots { flex: 1; border-bottom: 1.5px dotted #B9B5A3; transform: translateY(-5px); }
+.item__price {
+  font-family: var(--serif); font-weight: 600; font-size: 1.3rem;
+  font-variant-numeric: lining-nums tabular-nums; white-space: nowrap;
+}
+.item__meta { margin: 4px 0 0; color: var(--tinta-2); font-size: .92rem; max-width: 42ch; }
+.item--combo .item__name { color: var(--verde); font-weight: 700; }
+.item--combo .item__price { color: var(--verde); }
+.tag {
+  display: inline-block; margin-left: 8px; padding: 2px 9px;
+  background: color-mix(in srgb, var(--verde) 14%, var(--crema));
+  color: var(--verde); border-radius: 999px;
+  font-style: normal; font-weight: 600; font-size: .66rem;
+  letter-spacing: .06em; text-transform: uppercase; vertical-align: 2px;
+}
+
+/* ---------- Banda cálida a sangre ---------- */
+.warm {
+  position: relative; isolation: isolate;
+  min-height: clamp(460px, 82vh, 760px);
+  display: flex; align-items: flex-end;
+  padding: clamp(40px, 8vw, 96px) var(--gutter);
+  overflow: hidden; color: var(--crema);
+}
+.warm__media { position: absolute; inset: -8% 0; z-index: -2; will-change: transform; }
+.warm__media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 32%; }
+.warm::after {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background:
+    linear-gradient(180deg, rgba(21,23,26,.15), rgba(21,23,26,.72)),
+    linear-gradient(90deg, rgba(42,24,12,.35), transparent 60%);
+}
+.warm__inner { max-width: 640px; }
+.warm__eyebrow {
+  margin: 0 0 18px; font-size: .72rem; text-transform: uppercase;
+  letter-spacing: .28em; font-weight: 500; color: var(--laton);
+}
+.warm__title {
+  margin: 0; font-family: var(--serif); font-weight: 500; font-variation-settings:"opsz" 96;
+  text-transform: uppercase; font-size: clamp(2.3rem, 6vw, 5rem);
+  line-height: .96; letter-spacing: -0.02em; color: var(--crema);
+}
+.warm__text {
+  margin: clamp(18px, 2.4vw, 28px) 0 0; max-width: 46ch;
+  font-size: clamp(1.02rem, 1.4vw, 1.2rem); line-height: 1.5;
+  color: color-mix(in srgb, var(--crema) 86%, transparent);
+}
+
+/* ---------- El barbero ---------- */
+.about {
+  display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr);
+  gap: clamp(36px, 6vw, 92px); align-items: center;
+  border-top: 1px solid var(--linea);
+}
+.about__photo { margin: 0; overflow: hidden; }
+.about__photo img {
+  width: 100%; aspect-ratio: 4 / 5; object-fit: cover;
+}
+.about__text .sec-title { margin-bottom: clamp(24px, 3vw, 36px); }
+.about__text p { max-width: 54ch; color: var(--tinta-2); }
+.about__text p strong { color: var(--tinta); font-weight: 600; }
+.about__text p + p { margin-top: 16px; }
+.about__text .btn { margin-top: clamp(26px, 3vw, 36px); }
+
+/* ---------- Trabajos ---------- */
+.work { border-top: 1px solid var(--linea); }
+.gallery {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: clamp(190px, 21vw, 300px);
+  grid-auto-flow: dense; gap: 12px;
+}
+.gallery__item {
+  position: relative; overflow: hidden; background: var(--crema-2);
+}
+.gallery__item--tall { grid-row: span 2; }
+.gallery__item img {
+  width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%;
+  transition: transform .9s cubic-bezier(.2,.7,.1,1);
+}
+.gallery__item:hover img { transform: scale(1.05); }
+.gallery__tag {
+  position: absolute; left: 12px; bottom: 12px;
+  padding: 5px 12px; border-radius: 999px;
+  background: color-mix(in srgb, var(--tinta) 82%, transparent);
+  color: var(--crema); font-size: .72rem; font-weight: 600;
+  letter-spacing: .04em; backdrop-filter: blur(4px);
+}
+
+/* ---------- Reels ---------- */
+.reels { margin-top: clamp(48px, 6vw, 80px); }
+.reels__label {
+  margin: 0 0 20px; font-size: .72rem; text-transform: uppercase;
+  letter-spacing: .24em; font-weight: 600; color: var(--tinta-2);
+}
+.reels__row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.reel { margin: 0; }
+.reel iframe {
+  display: block; width: 100%; height: 620px; border: 0;
+  background: var(--crema-2);
+}
+.reel figcaption { margin-top: 10px; font-size: .9rem; color: var(--tinta-2); }
+
+/* ---------- Opiniones (banda oscura) ---------- */
+.reviews {
+  max-width: none; background: var(--tinta); color: var(--crema);
+}
+.reviews > * { max-width: var(--max); margin-left: auto; margin-right: auto; }
+.reviews .sec-title { color: var(--crema); }
+.reviews a { color: var(--crema); text-decoration: underline; text-underline-offset: 3px; }
+.reviews a:hover { color: var(--laton); }
+.reviews__head {
+  display: grid; grid-template-columns: 1fr auto; align-items: end;
+  gap: 28px clamp(40px, 6vw, 90px);
+  margin-bottom: clamp(44px, 6vw, 72px);
+}
+.reviews__score { text-align: right; }
+.score { display: flex; align-items: baseline; gap: 14px; justify-content: flex-end; margin: 0; }
+.score__num {
+  font-family: var(--serif); font-weight: 600; font-variation-settings:"opsz" 96;
+  font-size: clamp(3rem, 6vw, 4.6rem); line-height: 1;
+}
+.score .stars { color: var(--laton); letter-spacing: .06em; font-size: 1.3rem; }
+.score__src { margin: 10px 0 0; color: color-mix(in srgb, var(--crema) 68%, transparent); font-size: .9rem; max-width: 34ch; margin-left: auto; }
+
+.quotes {
+  list-style: none; margin: 0; padding: 0;
+  columns: 3 290px; column-gap: clamp(28px, 4vw, 56px);
+}
+.quote {
+  break-inside: avoid; padding: 24px 0 28px;
+  border-top: 1px solid color-mix(in srgb, var(--crema) 16%, transparent);
+}
+.quote:first-child { border-top: 0; padding-top: 0; }
+.quote blockquote {
+  margin: 0; font-family: var(--serif); font-style: italic; font-weight: 400;
+  font-variation-settings:"opsz" 24;
+  font-size: 1.22rem; line-height: 1.5;
+  color: color-mix(in srgb, var(--crema) 94%, transparent);
+}
+.quote__by { margin: 14px 0 0; font-weight: 600; font-size: .9rem; }
+.quote__by span { font-weight: 400; color: color-mix(in srgb, var(--crema) 60%, transparent); }
+
+/* ---------- Reserva (CTA a sangre con rayas de la capa) ---------- */
+.cta {
+  position: relative; isolation: isolate; overflow: hidden;
+  padding: clamp(72px, 12vw, 150px) var(--gutter);
+}
+.cta__stripes {
+  position: absolute; inset: 0; z-index: -1;
+  background:
+    repeating-linear-gradient(90deg,
+      var(--verde) 0 42px,
+      var(--verde-osc) 42px 44px,
+      #F2F0E7 44px 84px,
+      var(--verde-osc) 84px 86px,
+      var(--verde) 86px 88px);
+  background-size: 88px 100%;
+}
+.cta__card {
+  max-width: 600px; margin: 0 auto; text-align: center;
+  background: var(--crema);
+  padding: clamp(34px, 5vw, 60px);
+  box-shadow: 0 30px 60px -30px rgba(20,62,43,.6);
+}
+.cta__card .sec-eyebrow { justify-content: center; }
+.cta__card .sec-title { font-size: clamp(2.2rem, 5.4vw, 4rem); }
+.cta__text { margin: clamp(20px, 2.6vw, 30px) auto 0; max-width: 46ch; color: var(--tinta-2); }
+.cta__actions { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 18px 26px; margin-top: clamp(28px, 3.4vw, 40px); }
+
+/* ---------- Contacto ---------- */
+.contact {
+  display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
+  gap: clamp(36px, 6vw, 80px); align-items: start;
+  border-top: 1px solid var(--linea);
+}
+.contact .sec-title { margin-bottom: clamp(26px, 3vw, 36px); }
+.contact address { font-style: normal; }
+.contact__addr { font-size: 1.2rem; line-height: 1.4; }
+.contact__phone {
+  display: inline-block; margin-top: 10px;
+  font-family: var(--serif); font-size: 1.7rem; font-weight: 600;
+  font-variant-numeric: lining-nums;
+}
+.contact__links { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 18px; font-weight: 600; font-size: .92rem; }
+.contact__links a { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--cuero); }
+.contact__hours-title {
+  margin: clamp(34px, 4vw, 44px) 0 0; padding-bottom: 10px;
+  border-bottom: 1.5px solid var(--tinta);
+  font-size: .78rem; text-transform: uppercase; letter-spacing: .18em; font-weight: 600;
+}
+.hours { width: 100%; border-collapse: collapse; font-size: .98rem; margin-top: 4px; }
+.hours th, .hours td { padding: 11px 4px; border-bottom: 1px solid var(--linea); text-align: left; }
+.hours th { font-weight: 500; width: 38%; }
+.hours td { font-variant-numeric: tabular-nums; color: var(--tinta-2); }
+.hours tr.is-today { color: var(--verde); }
+.hours tr.is-today th, .hours tr.is-today td { font-weight: 700; color: var(--verde); }
+.hours tr.is-today th::after { content: " · hoy"; font-weight: 500; }
+.contact__status {
+  margin-top: 18px; font-weight: 600; font-size: .92rem; color: var(--verde);
+}
+.contact__map { min-height: 440px; height: 100%; }
+.contact__map iframe {
+  width: 100%; height: 100%; min-height: 440px; border: 0;
+  filter: grayscale(.2) saturate(.9);
+}
+
+/* ---------- Pie ---------- */
+.footer { background: var(--tinta); color: color-mix(in srgb, var(--crema) 80%, transparent); }
+.footer__inner {
+  max-width: var(--max); margin: 0 auto;
+  padding: clamp(48px, 7vw, 88px) var(--gutter);
+  display: grid; grid-template-columns: auto 1fr; gap: 36px clamp(40px, 8vw, 120px); align-items: start;
+}
+.brand--light { color: var(--crema); }
+.footer__cols {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px 40px;
+  font-size: .95rem; line-height: 1.6;
+}
+.footer__cols a { text-decoration: none; }
+.footer__cols a:hover { color: var(--laton); }
+.footer__claim {
+  font-family: var(--serif); font-style: italic; font-size: 1.25rem;
+  color: var(--laton); text-transform: none;
+}
+
+/* ---------- Barra fija de reserva en móvil ---------- */
+.mobilebar { display: none; }
+
+/* ---------- Botón de texto sobre crema (alias) ---------- */
+.btn--text-dark { color: var(--tinta); }
+.btn--text-dark::after { background: var(--cuero); }
+.btn--text-dark:hover { color: var(--cuero); }
+
+/* ---------- Revelado al hacer scroll ---------- */
+.js [data-reveal] { opacity: 0; }
+.no-js [data-reveal] { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] { opacity: 1 !important; transform: none !important; }
+  .warm__media { transform: none !important; }
+}
+
+/* ==========================================================
+   RESPONSIVE de las secciones
+   ========================================================== */
+@media (max-width: 900px) {
+  .sec-head--split { grid-template-columns: 1fr; align-items: start; }
+  .menu { grid-template-columns: 1fr; gap: clamp(28px, 6vw, 44px); }
+  .about { grid-template-columns: 1fr; }
+  .about__photo { order: -1; }
+  .about__photo img { aspect-ratio: 5 / 4; }
+  .gallery { grid-template-columns: repeat(2, 1fr); grid-auto-rows: clamp(200px, 40vw, 300px); }
+  .reels__row { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(260px, 78%); overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px; padding-bottom: 8px; }
+  .reel { scroll-snap-align: start; }
+  .reel iframe { height: 540px; }
+  .reviews__head { grid-template-columns: 1fr; }
+  .reviews__score, .score, .score__src { text-align: left; }
+  .score { justify-content: flex-start; }
+  .score__src { margin-left: 0; }
+  .quotes { columns: 2 260px; }
+  .contact { grid-template-columns: 1fr; }
+  .contact__map, .contact__map iframe { min-height: 340px; }
+  .footer__inner { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 560px) {
+  body { padding-bottom: 76px; }
+  .section { padding-top: clamp(56px, 14vw, 80px); padding-bottom: clamp(56px, 14vw, 80px); }
+  .gallery { grid-template-columns: 1fr 1fr; grid-auto-rows: 44vw; gap: 8px; }
+  .quotes { columns: 1; }
+  .footer__cols { grid-template-columns: 1fr; }
+  .reel iframe { height: 500px; }
+
+  .mobilebar {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
+    display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 10px;
+    padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+    background: color-mix(in srgb, var(--crema) 94%, transparent);
+    backdrop-filter: blur(10px); border-top: 1px solid var(--linea);
+  }
+  .mobilebar .btn { min-height: 46px; width: auto; }
+  .mobilebar .btn--text-dark { padding: 0 10px; }
+}
