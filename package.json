@@ -1,0 +1,9 @@
+{
+  "name": "georgiev-barber-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Web de Georgiev Barber, barbería en Lorca",
+  "scripts": {
+    "dev": "npx --yes serve@14.2.4 -l 5173 ."
+  }
+}
